@@ -48,21 +48,25 @@ const initialState: DialogsPageType = {
 // for this reducer state is state.dialogsPage, we give here only this part of state.
 // It's important to give a type oe return of function
 const dialogsReducer = (state:DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
-    let stateCopy = {...state};
+    let stateCopy = {
+        ...state,
+        messages:  [...state.messages]
+    };
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            let stateCopy = {...state};
-            stateCopy.newMessageBody = action.body;
-            return stateCopy;
+            return {
+                ...state,
+                newMessageBody: action.body
+            };
 
         case SEND_MESSAGE: {
-            let stateCopy = {...state};
-            stateCopy.messages = [...state.messages];
             let body = state.newMessageBody
-            stateCopy.newMessageBody = '';
-            stateCopy.messages.push({id: 6, message: body})
-            return stateCopy;
+            return {
+                ...state,
+                messages:  [...state.messages, {id: 6, message: body}],
+                newMessageBody:  ''
+            };
         }
 
         default:

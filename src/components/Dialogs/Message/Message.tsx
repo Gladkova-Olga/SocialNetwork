@@ -12,7 +12,7 @@ function Message(props: MessageType) {
 
         <div className={s.message}>
             <div>
-                {props.message+"zzzzzz"}
+                {props.message}
             </div>
             {/*<div>*/}
             {/*<textarea ref = {addMessage}></textarea>*/}
