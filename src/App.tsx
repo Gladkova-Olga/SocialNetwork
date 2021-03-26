@@ -11,6 +11,8 @@ import Music from "./components/Music/Music";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {RootStateType} from "./Redux/reduxStore";
+import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 type AppPropsType = {
@@ -37,6 +39,10 @@ function App(props: AppPropsType) {
                     <Route path ={'/dialogs'}
                            render={() =>  <DialogsContainer
                            />}/>
+                    <Route path ={'/users'}
+                           render={() =>  <UsersContainer/>
+                           }/>
+
                     <Route path ={'/news'} render={() =>  <News />}/>
                     <Route path ={'/music'} render={() =>  <Music />}/>
                     <Route path ={'/settings'} render={() =>  <Settings />}/>
