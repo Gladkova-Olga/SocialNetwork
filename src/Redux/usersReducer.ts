@@ -5,13 +5,17 @@
  export type UserType = {
      id: number
      followed: boolean
-     fullName: string
+     name: string
      status: string
-     location: {
-         city: string
-         country: string
+     // location: {
+     //     city: string
+     //     country: string
+     // }
+     // photoURL: string
+     photos: {
+         small: string | null
+         large: string | null
      }
-     photoURL: string
  }
  export type UsersPageType = typeof initialState
 
