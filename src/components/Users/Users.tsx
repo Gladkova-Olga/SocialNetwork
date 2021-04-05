@@ -7,23 +7,30 @@ import {AppStateType} from "../../Redux/reduxStore";
 
 //Не типизированы запросы!!!
 class Users  extends React.Component<UsersPropsType, AppStateType>{
-    constructor(props: UsersPropsType) {
-        super(props);
-        if(this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+    // если конструктор только передает управление родительскому классу, то конструктор можно не писать
+    // constructor(props: UsersPropsType) {
+    //     super(props);
+    // }
 
-                this.props.setUsers(response.data.items)
-            })
-        }
+componentDidMount() {
+    if(this.props.users.length === 0) {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
 
-
+            this.props.setUsers(response.data.items)
+        })
     }
-    getUsers = () => {
+}
 
-    }
     render() {
         return (
             <div>
+                <div>
+                   <span className={styles.selectedPage}>1</span>
+                   <span>2</span>
+                   <span>3</span>
+                   <span>4</span>
+                   <span>5</span>
+                </div>
                 {
                     this.props.users.map(u => <div key={u.id}>
                     <span>
