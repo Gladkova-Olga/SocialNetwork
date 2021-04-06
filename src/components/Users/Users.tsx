@@ -1,58 +1,38 @@
 import React from "react";
-import userPhoto from "../../assets/images/User_icon.png";
 import styles from "./users.module.css";
-import axios from "axios";
-import {UsersPropsType} from "./UsersContainer";
-import {AppStateType} from "../../Redux/reduxStore";
+import userPhoto from "../../assets/images/User_icon.png";
+import {UserType} from "../../Redux/usersReducer";
 
-//Не типизированы запросы!!!
-class Users extends React.Component<UsersPropsType, AppStateType> {
-    // если конструктор только передает управление родительскому классу, то конструктор можно не писать
-    // constructor(props: UsersPropsType) {
-    //     super(props);
-    // }
 
-    componentDidMount() {
-        if (this.props.users.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-                .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-                   
-            })
-        }
+type UsersPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    users: Array<UserType>
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+}
+
+function Users(props: UsersPropsType) {
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    const pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
-
-    onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-
-            this.props.setUsers(response.data.items)
-        })
-    }
-
-    render() {
-        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        const pages = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i);
-        }
-        return (
+    return (
+        <div>
             <div>
-                <div>
-                    {pages.map(p => {
-                        return (
-                            <span className={(p === this.props.currentPage) ? styles.selectedPage : ''}
-                                  onClick={(e) => {
-                                      this.onPageChanged(p)
-                                  }}
-                            > {p}</span>
-                        )
-                    })}
+                {pages.map(p => {
+                    return (
+                        <span className={(p === props.currentPage) ? styles.selectedPage : ''}
+                              onClick={() => {props.onPageChanged(p)}}
+                        > {p}</span>
+                    )
+                })}
 
-                </div>
-                {
-                    this.props.users.map(u => <div key={u.id}>
+            </div>
+            {props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img src={u.photos.small ? u.photos.small : userPhoto} className={styles.userPhoto}/>
@@ -60,15 +40,15 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
                         <div>
                             {u.followed
                                 ? <button onClick={() => {
-                                    this.props.unfollow(u.id)
+                                    props.unfollow(u.id)
                                 }}>Unfollow</button> :
                                 <button onClick={() => {
-                                    this.props.follow(u.id)
+                                    props.follow(u.id)
                                 }}>Follow</button>}
 
                         </div>
                     </span>
-                            <span>
+                        <span>
                          <span>
                              <div>{u.name}</div><div>{u.status}</div>
                          </span>
@@ -77,14 +57,11 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
                                <div>{"u.location.city"}</div>
                          </span>
                     </span>
-                        </div>
-                    )
-                }
-            </div>
-        )
-    }
-
+                    </div>
+                )
+            }
+        </div>
+    )
 }
 
-
-export default Users;
+export default Users
