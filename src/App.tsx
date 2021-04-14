@@ -25,7 +25,7 @@ function App(props: AppPropsType) {
                      state = {props.state.sidebar.friends}
                 />
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile'}
+                    <Route path={'/profile/:userId?'}
                            render={ () => <ProfileContainer />}/>
                     <Route path ={'/dialogs'}
                            render={() =>  <DialogsContainer/>}/>

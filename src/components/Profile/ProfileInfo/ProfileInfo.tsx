@@ -17,6 +17,8 @@ function ProfileInfo(props: PropsType) {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large ? props.profile.photos.large: ''}/>
+                {props.profile.fullName}
+                {props.profile.aboutMe}
             </div>
         </div>
     )
