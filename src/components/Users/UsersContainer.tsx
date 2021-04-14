@@ -12,7 +12,6 @@ import {
 } from "../../Redux/usersReducer";
 import axios from "axios";
 import Users from "./Users";
-import loader from "../../assets/images/loader.gif";
 import Preloader from "../common/preloader/Preloader";
 
 type MapStateToPropsType = {
