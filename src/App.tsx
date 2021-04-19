@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
 import Navbar from "./components/Navbar/Navbar";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Route} from "react-router-dom";
@@ -10,6 +9,7 @@ import Music from "./components/Music/Music";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {RootStateType} from "./Redux/reduxStore";
 import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 type AppPropsType = {
@@ -20,7 +20,7 @@ function App(props: AppPropsType) {
 
     return (
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar
                      state = {props.state.sidebar.friends}
                 />
