@@ -9,9 +9,9 @@ import {
     unfollow,
     UserType
 } from "../../Redux/usersReducer";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -37,35 +37,23 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, AppStat
     // }
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        if (this.props.users.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-                {
-                    headers: {
-                        "API-KEY" : "ac9f8bba-4f9b-409e-bf86-a85be8d0bfe1"
-                    }
-                }
-                )
-                .then(response => {
-                    this.props.toggleIsFetching(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUsersCount(response.data.totalCount)
+        this.props.toggleIsFetching(true);
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data=> {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
 
-                })
-        }
+        })
+
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-            {   headers: {
-                    "API-KEY" : "ac9f8bba-4f9b-409e-bf86-a85be8d0bfe1"
-                }})
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-            })
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+            this.props.toggleIsFetching(false)
+            this.props.setUsers(data.items)
+        });
     }
 
     render() {
@@ -130,4 +118,4 @@ export default connect(mapStateToProps,
         setTotalUsersCount,
         toggleIsFetching,
     }
-    )(UsersContainer)
+)(UsersContainer)
