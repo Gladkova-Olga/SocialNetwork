@@ -7,7 +7,7 @@ import {
     setUsers,
     setTotalUsersCount, toggleIsFetching,
     unfollow,
-    UserType
+    UserType, toggleFollowingProgress
 } from "../../Redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
@@ -19,6 +19,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 type MapDispatchToPropsType = {
     follow: (userID: number) => void
@@ -27,6 +28,7 @@ type MapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingProgress: (isFetching: boolean, userID: number) => void
 }
 export type UsersAPIComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -69,6 +71,8 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, AppStat
                     users={this.props.users}
                     follow={this.props.follow}
                     unfollow={this.props.unfollow}
+                    toggleFollowingProgress={this.props.toggleFollowingProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         )
@@ -82,7 +86,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => { //state of
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 // let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => { //dispatch: Dispatch(from Redux)
@@ -117,5 +122,6 @@ export default connect(mapStateToProps,
         setCurrentPage,
         setTotalUsersCount,
         toggleIsFetching,
+        toggleFollowingProgress
     }
 )(UsersContainer)
