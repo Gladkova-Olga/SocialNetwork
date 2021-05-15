@@ -1,5 +1,7 @@
-import {UsersPageType} from "./usersReducer";
+import {toggleFollowingProgress, unfollowSuccess, UsersPageType} from "./usersReducer";
 import {PostType} from "./profileReducer";
+import {Dispatch} from "redux";
+import {authAPI, usersAPI} from "../api/api";
 
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -34,6 +36,23 @@ export const authReducer = (state:InitialStateType = initialState, action: Actio
     }
 }
 
-export const setAuthUserData = (userId: number, email: string, login:string) =>
+export const setAuthUserData = (userId: number | null, email: string | null , login:string | null) =>
     ({type: SET_USER_DATA, data: {userId, email, login}} as const)
+
+export const setAuth = () => {
+    return     (dispatch: Dispatch) => {
+        authAPI.authMe()
+            .then(data => {
+                if(data.resultCode === 0) {
+                    let {userId, email, login} = data.data;
+                    dispatch(setAuthUserData(userId, email, login)) ;
+                }
+            })
+    }
+
+}
+
+
+
+
 
