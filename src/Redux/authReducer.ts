@@ -39,7 +39,7 @@ export const authReducer = (state:InitialStateType = initialState, action: Actio
 export const setAuthUserData = (userId: number | null, email: string | null , login:string | null) =>
     ({type: SET_USER_DATA, data: {userId, email, login}} as const)
 
-export const setAuth = () => {
+export const getAuthUserData = () => {
     return     (dispatch: Dispatch) => {
         authAPI.authMe()
             .then(data => {

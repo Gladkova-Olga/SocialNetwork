@@ -21,7 +21,6 @@ export const usersAPI = {
         return instance.post(`follow/${userID}`)
             .then(response => response.data)
     }
-
 }
 
 export const authAPI = {
