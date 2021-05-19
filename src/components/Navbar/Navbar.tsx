@@ -6,13 +6,13 @@ import {DialogsType} from "../../Redux/dialogsReducer";
 
 
 type NavbarType = {
-    state: Array<DialogsType>
+    // state: Array<DialogsType>
 }
 
 function Navbar(props: NavbarType) {
-    let friendsElements = props.state.map(
-        d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>
-    );
+    // let friendsElements = props.state.map(
+    //     d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>
+    // );
     return (
         <nav className = {s.nav}>
             <div className = {`${s.item}`}>
@@ -34,11 +34,11 @@ function Navbar(props: NavbarType) {
                 <NavLink to={"/settings"} activeClassName={s.activeLink}>Settings</NavLink>
             </div>
 
-            <div className={s.item}>
-                <h3>Friends</h3>
-                {friendsElements}
+            {/*<div className={s.item}>*/}
+            {/*    <h3>Friends</h3>*/}
+            {/*    {friendsElements}*/}
 
-            </div>
+            {/*</div>*/}
         </nav>
     )
 }

@@ -4,6 +4,7 @@ import {DialogsPageType, sendMessageCreator, updateNewMessageBodyCreator} from "
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {Dispatch} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapStateToPropsType = {
     dialogsPage: DialogsPageType
@@ -26,6 +27,6 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => { //dis
         onSendMessage: () => dispatch(sendMessageCreator()),
     }
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs));
 
 export default DialogsContainer;

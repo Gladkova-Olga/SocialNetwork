@@ -10,6 +10,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {RootStateType} from "./Redux/reduxStore";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 
 type AppPropsType = {
@@ -22,7 +23,7 @@ function App(props: AppPropsType) {
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar
-                     state = {props.state.sidebar.friends}
+                     // state = {props.state.sidebar.friends}
                 />
                 <div className={'app-wrapper-content'}>
                     <Route path={'/profile/:userId?'}
@@ -31,6 +32,8 @@ function App(props: AppPropsType) {
                            render={() =>  <DialogsContainer/>}/>
                     <Route path ={'/users'}
                            render={() =>  <UsersContainer/>}/>
+
+                    <Route path ={'/login'} render={() =>  <Login />}/>
 
                     <Route path ={'/news'} render={() =>  <News />}/>
                     <Route path ={'/music'} render={() =>  <Music />}/>
