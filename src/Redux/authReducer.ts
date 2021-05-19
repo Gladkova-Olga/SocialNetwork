@@ -2,6 +2,8 @@ import {toggleFollowingProgress, unfollowSuccess, UsersPageType} from "./usersRe
 import {PostType} from "./profileReducer";
 import {Dispatch} from "redux";
 import {authAPI, usersAPI} from "../api/api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -14,6 +16,7 @@ type InitialStateType = {
     login: null | string
     isAuth: boolean
 }
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 
 let initialState: InitialStateType= {
     userId: null,
@@ -39,8 +42,8 @@ export const authReducer = (state:InitialStateType = initialState, action: Actio
 export const setAuthUserData = (userId: number | null, email: string | null , login:string | null) =>
     ({type: SET_USER_DATA, data: {userId, email, login}} as const)
 
-export const getAuthUserData = () => {
-    return     (dispatch: Dispatch) => {
+export const getAuthUserData = (): ThunkType => {
+    return     (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         authAPI.authMe()
             .then(data => {
                 if(data.resultCode === 0) {

@@ -1,6 +1,8 @@
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 import {toggleFollowingProgress, unfollowSuccess} from "./usersReducer";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -33,6 +35,7 @@ type ActionsTypes =
     ReturnType<typeof updateNewPostTextActionCreator> |
     ReturnType<typeof setUserProfile>
 
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 const initialState: InitialStateType = {
     posts: [
@@ -89,8 +92,8 @@ export const setUserProfile = (profile: ProfileUserType) => ({
     profile
 } as const)
 
-export const getUserProfile = (userId: number) => {
-    return (dispatch: Dispatch) => { //thunk
+export const getUserProfile = (userId: number): ThunkType => {
+    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => { //thunk
         profileAPI.getUserProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data))

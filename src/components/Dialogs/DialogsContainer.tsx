@@ -27,6 +27,6 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => { //dis
         onSendMessage: () => dispatch(sendMessageCreator()),
     }
 }
-const DialogsContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs));
+const DialogsContainer = withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Dialogs));
 
 export default DialogsContainer;
