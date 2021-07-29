@@ -2,9 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {
-
     setCurrentPage,
-
     UserType, toggleFollowingProgress, getUsers, unfollow, follow
 } from "../../Redux/usersReducer";
 import Users from "./Users";
@@ -97,7 +95,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => { //state of
 
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect(mapStateToProps,
         {
             follow,
