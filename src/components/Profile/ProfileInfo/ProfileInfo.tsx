@@ -5,6 +5,8 @@ import {ProfileUserType} from "../../../Redux/profileReducer";
 import ProfileStatus from "./ProfileStatus";
 type PropsType = {
     profile: null | ProfileUserType
+    status: string
+    updateUserStatus: (status: string) => any
 }
 function ProfileInfo(props: PropsType) {
     if (!props.profile) {
@@ -20,7 +22,7 @@ function ProfileInfo(props: PropsType) {
                 <img src={props.profile.photos.large ? props.profile.photos.large: ''}/>
                 {props.profile.fullName}
                 {props.profile.aboutMe}
-                <ProfileStatus status = "YO"/>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
             </div>
         </div>
     )
