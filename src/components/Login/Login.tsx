@@ -6,6 +6,21 @@ type PropsType = {
 
 export const Login = (props: PropsType) => {
     return (
-        <h1>LOGIN</h1>
+        <div>
+            <h1>LOGIN</h1>
+            <form>
+                <div>
+                    <input placeholder={"login"}/>
+                </div>
+                <div>
+                    <input placeholder={"password"}/>
+                </div>
+                <div>
+                    <input type={"checkbox"}/> remember me
+                </div>
+                <div><button>sign in</button></div>
+            </form>
+        </div>
+
     )
 }
