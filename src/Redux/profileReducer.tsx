@@ -5,7 +5,6 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS'
 
@@ -34,7 +33,6 @@ export type ProfileUserType = {
 
 type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof updateNewPostTextActionCreator> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setUserStatus>
 
@@ -62,15 +60,9 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
+                // newPostText: '',
             };
 
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            };
-        }
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -93,10 +85,6 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 export const addPostActionCreator = (newPostText: string) => ({
     type: ADD_POST,
     newPostText
-} as const)
-export const updateNewPostTextActionCreator = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText
 } as const)
 export const setUserProfile = (profile: ProfileUserType) => ({
     type: SET_USER_PROFILE,
@@ -126,12 +114,12 @@ export const getUserStatus = (userId: number): ThunkType => {
 }
 export const updateUserStatus = (status: string): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) =>
-    profileAPI.updateUserStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserStatus(status))
-            }
-        })
+        profileAPI.updateUserStatus(status)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserStatus(status))
+                }
+            })
 }
 
 export default profileReducer;

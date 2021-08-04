@@ -1,5 +1,5 @@
-import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
-import dialogsReducer, {sendMessageCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
+import profileReducer, {addPostActionCreator} from "./profileReducer";
+import  {sendMessageCreator} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 
 let rerenderEntireTree = (state: RootStateType) => {
@@ -53,8 +53,8 @@ type StoreType = {
 // уточнить, в каком файле организовать хранение ActionsTypes
  type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof updateNewMessageBodyCreator>
+    // | ReturnType<typeof updateNewPostTextActionCreator>
+    // | ReturnType<typeof updateNewMessageBodyCreator>
     | ReturnType<typeof sendMessageCreator>
 
 

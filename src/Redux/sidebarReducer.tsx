@@ -1,6 +1,5 @@
 
-import {DialogsType, sendMessageCreator, updateNewMessageBodyCreator} from "./dialogsReducer";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
+import {DialogsType} from "./dialogsReducer";
 
 export type SidebarType = {
     friends: Array<DialogsType>

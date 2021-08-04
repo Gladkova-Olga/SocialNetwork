@@ -1,11 +1,10 @@
 
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 type ActionsTypes =
-    ReturnType<typeof updateNewMessageBodyCreator>
-    | ReturnType<typeof sendMessageCreator>
+ ReturnType<typeof sendMessageCreator>
 
 export type DialogsPageType = {
     messages: Array<MessageType>
@@ -48,24 +47,13 @@ const initialState: DialogsPageType = {
 // for this reducer state is state.dialogsPage, we give here only this part of state.
 // It's important to give a type oe return of function
 const dialogsReducer = (state:DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
-    let stateCopy = {
-        ...state,
-        messages:  [...state.messages]
-    };
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {
-                ...state,
-                newMessageBody: action.body
-            };
-
         case SEND_MESSAGE: {
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return {
                 ...state,
                 messages:  [...state.messages, {id: 6, message: body}],
-                newMessageBody:  ''
             };
         }
 
@@ -76,12 +64,9 @@ const dialogsReducer = (state:DialogsPageType = initialState, action: ActionsTyp
 
 }
 
-export const updateNewMessageBodyCreator = (body: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
-}) as const
-export const sendMessageCreator = () => ({
+export const sendMessageCreator = (newMessageBody:string) => ({
     type: SEND_MESSAGE,
+    newMessageBody
 }) as const
 
 export default dialogsReducer;
