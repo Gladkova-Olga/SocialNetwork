@@ -1,4 +1,6 @@
 import axios from "axios";
+import {UserType} from "../Redux/usersReducer";
+import {ProfileUserType} from "../Redux/profileReducer";
 
 type AuthDataType = {
     email: string
@@ -6,12 +8,18 @@ type AuthDataType = {
     login: string
 }
 
-type AuthCommonResponseType = {
-    data:  {}
-    fieldsErrors: []
-    messages: []
-    resultCode: 0
+type CommonResponseType<T = {}> = {
+    data:  T
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: number
 }
+type UserResponseType = {
+    error: null | string
+    items: Array<UserType>
+    totalCount: number
+}
+
 
 
 const instance = axios.create({
@@ -24,42 +32,42 @@ const instance = axios.create({
 })
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10 )  {
-        return  instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return  instance.get<UserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
 },
     unfollowUser(userID: number)  {
-        return  instance.delete(`follow/${userID}`)
+        return  instance.delete<CommonResponseType>(`follow/${userID}`)
             .then(response => response.data)
     },
     followUser(userID:number) {
-        return instance.post(`follow/${userID}`)
+        return instance.post<CommonResponseType>(`follow/${userID}`)
             .then(response => response.data)
     }
 }
 
 export const authAPI = {
     authMe() {
-        return instance.get(`auth/me`)
+        return instance.get<CommonResponseType<AuthDataType>>(`auth/me`)
             .then(response => response.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: boolean | null = null) {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe, captcha})
     },
     logout() {
-        return instance.delete(`auth/login`,)
+        return instance.delete<CommonResponseType>(`auth/login`,)
     }
 }
 
 export const profileAPI = {
     getUserProfile(userId: number) {
-        return instance.get(`profile/${userId}` )
+        return instance.get<ProfileUserType>(`profile/${userId}` )
             .then(response => response.data)
     },
     getUserStatus(userId: number) {
-        return instance.get(`profile/status/${userId}`)
+        return instance.get<string>(`profile/status/${userId}`)
     },
     updateUserStatus(status: string) {
-        return instance.put(`profile/status`, {status})
+        return instance.put<CommonResponseType>(`profile/status`, {status})
     }
 }
 

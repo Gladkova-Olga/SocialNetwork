@@ -21,14 +21,39 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileUserType = {
-    aboutMe: string
-    fullName: string
-    userID: number
-    photos: {
-        small: string | null
-        large: string | null
+    aboutMe: {
+        aboutMe: null | string
     }
+    contacts:
+        {
+            facebook: null | string
+            website: null | string
+            vk: null | string
+            twitter: null | string
+            instagram: null | string
+            youtube: null | string
+            github: null | string
+            mainLink: null | string
+        }
+
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: null | string
+    photos: {
+        small: null | string
+        large: null | string
+    }
+    userId: number
 }
+// export type ProfileUserType = {
+//     aboutMe: string
+//     fullName: string
+//     userId: number
+//     photos: {
+//         small: string | null
+//         large: string | null
+//     }
+// }
 
 
 type ActionsTypes =

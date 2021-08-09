@@ -3,6 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPost/Post/MyPostsContainer";
 import {ProfileUserType} from "../../Redux/profileReducer";
 
+
 type ProfilePropsType = {
     profile: null | ProfileUserType
     status: string
