@@ -45,16 +45,6 @@ export type ProfileUserType = {
     }
     userId: number
 }
-// export type ProfileUserType = {
-//     aboutMe: string
-//     fullName: string
-//     userId: number
-//     photos: {
-//         small: string | null
-//         large: string | null
-//     }
-// }
-
 
 type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
@@ -120,7 +110,7 @@ export const setUserStatus = (status: string) => ({
     status
 } as const)
 
-export const getUserProfile = (userId: number): ThunkType => {
+export const getUserProfile = (userId: number | null): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => { //thunk
         profileAPI.getUserProfile(userId)
             .then(data => {
@@ -129,7 +119,7 @@ export const getUserProfile = (userId: number): ThunkType => {
     }
 }
 
-export const getUserStatus = (userId: number): ThunkType => {
+export const getUserStatus = (userId: number | null): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => { //thunk
         profileAPI.getUserStatus(userId)
             .then(response => {

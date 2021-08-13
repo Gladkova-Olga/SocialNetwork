@@ -8,11 +8,11 @@ import thunkMiddleware from "redux-thunk"
 import { reducer as formReducer } from "redux-form";
 
 //
-export type RootStateType = {
-    profilePage: InitialStateType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
-}
+// export type RootStateType = {
+//     profilePage: InitialStateType
+//     dialogsPage: DialogsPageType
+//     sidebar: SidebarType
+// }
 
 
 let rootReducer = combineReducers({

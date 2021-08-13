@@ -59,11 +59,11 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    getUserProfile(userId: number) {
+    getUserProfile(userId: number | null) {
         return instance.get<ProfileUserType>(`profile/${userId}` )
             .then(response => response.data)
     },
-    getUserStatus(userId: number) {
+    getUserStatus(userId: number | null) {
         return instance.get<string>(`profile/status/${userId}`)
     },
     updateUserStatus(status: string) {
