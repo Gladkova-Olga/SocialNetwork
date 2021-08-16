@@ -15,7 +15,7 @@ type InitialStateType = {
     login: null | string
     isAuth: boolean
 }
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+type ThunkType = ThunkAction<any, AppStateType, unknown, ActionsType>
 
 let initialState: InitialStateType = {
     userId: null,
@@ -42,7 +42,7 @@ export const setAuthUserData = (userId: number | null , email: string | null, lo
 
 export const getAuthUserData = (): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
-        authAPI.authMe()
+      return   authAPI.authMe()
             .then(data => {
                 if (data.resultCode === 0) {
                     let { email, id, login} = data.data;

@@ -32,6 +32,9 @@ class ProfileContainer extends React.Component<PropsType> {
         let userId: number | null = +this.props.match.params.userId; //change type to number, because from PathParams we get string
         if (!userId) {
             userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push("/login")
+            }
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
