@@ -22,10 +22,11 @@ type MapStateToPropsType = {
 }
 type LoginPropsType = MapDispatchToPropsType & MapStateToPropsType
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = //деструктуризация props
+    ({handleSubmit, error}) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={"e-mail"} name={"email"} component={Input} validate={[required]}/>
             </div>
@@ -36,8 +37,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type={"checkbox"} name={"rememberMe"} component={Input}/> remember me
             </div>
-            {props.error && <div className={s.summaryError}>
-                {props.error}
+            {error && <div className={s.summaryError}>
+                {error}
             </div>}
             <div>
                 <button>sign in</button>
