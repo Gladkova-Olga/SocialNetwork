@@ -1,6 +1,4 @@
 import React, {ChangeEvent} from "react";
-import s from './ProfileInfo.module.css';
-import {setUserStatus} from "../../../Redux/profileReducer";
 
 
 type PropsType = {
@@ -13,7 +11,7 @@ class ProfileStatus extends React.Component<PropsType> {
         editMode: false,
         status: this.props.status
     }
-    activateEditMode = () =>  {
+    activateEditMode = () => {
         this.setState({
             editMode: true
         })
@@ -29,7 +27,8 @@ class ProfileStatus extends React.Component<PropsType> {
             status: e.currentTarget.value
         })
 
-}
+    }
+
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<any>, snapshot?: any) {
 
         if (prevProps.status !== this.props.status) {
@@ -49,7 +48,8 @@ class ProfileStatus extends React.Component<PropsType> {
                 }
                 {this.state.editMode &&
                 <div>
-                    <input  onChange={this.onStatusChange} autoFocus={true} value={this.state.status} onBlur={this.deactivateEditMode }/>
+                    <input onChange={this.onStatusChange} autoFocus={true} value={this.state.status}
+                           onBlur={this.deactivateEditMode}/>
                 </div>
                 }
 
