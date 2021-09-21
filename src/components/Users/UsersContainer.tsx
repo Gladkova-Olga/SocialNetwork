@@ -30,10 +30,7 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    // setUsers: (users: any) => void
     setCurrentPage: (pageNumber: number) => void
-    // setTotalUsersCount: (totalCount: number) => void
-    // toggleIsFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean, userID: number) => void
     getUsers: (currentPage: number, pageSize: number) => any
 }
@@ -46,12 +43,14 @@ class UsersContainer extends React.Component<UsersAPIComponentPropsType, AppStat
     // }
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize);
 
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        const {pageSize} = this.props
+        this.props.getUsers(pageNumber, pageSize);
 
     }
 
