@@ -3,7 +3,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/images/User_icon.png";
 import {UserType} from "../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import Paginator from "../common/paginator/Paginators";
+
 
 
 export type UserPropsType = {
