@@ -8,15 +8,18 @@ type ProfilePropsType = {
     profile: null | ProfileUserType
     status: string
     updateUserStatus: (status: string) => any
+    isOwner: boolean
+    savePhoto: (e: any, userId: number | null) => void
+    authorizedUserId: number | null
 }
 
 
 const  Profile = (props: ProfilePropsType) => {
-    console.log("profile")
 
     return (
         <div>
-            <ProfileInfo profile = {props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
+            <ProfileInfo profile = {props.profile} status={props.status} updateUserStatus={props.updateUserStatus}
+            isOwner = {props.isOwner} savePhoto={props.savePhoto} authorizedUserId={props.authorizedUserId}/>
             <MyPostsContainer
             />
         </div>

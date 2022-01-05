@@ -9,7 +9,7 @@ type AuthDataType = {
 }
 
 type CommonResponseType<T = {}> = {
-    data:  T
+    data: T
     fieldsErrors: string[]
     messages: string[]
     resultCode: number
@@ -19,7 +19,10 @@ type UserResponseType = {
     items: Array<UserType>
     totalCount: number
 }
-
+export type PhotosType = {
+    small: string
+    large: string
+}
 
 
 const instance = axios.create({
@@ -31,15 +34,15 @@ const instance = axios.create({
 
 })
 export const usersAPI = {
-    getUsers(currentPage: number = 1, pageSize: number = 10 )  {
-        return  instance.get<UserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data)
-},
-    unfollowUser(userID: number)  {
-        return  instance.delete<CommonResponseType>(`follow/${userID}`)
+    getUsers(currentPage: number = 1, pageSize: number = 10) {
+        return instance.get<UserResponseType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
-    followUser(userID:number) {
+    unfollowUser(userID: number) {
+        return instance.delete<CommonResponseType>(`follow/${userID}`)
+            .then(response => response.data)
+    },
+    followUser(userID: number) {
         return instance.post<CommonResponseType>(`follow/${userID}`)
             .then(response => response.data)
     }
@@ -51,7 +54,12 @@ export const authAPI = {
             .then(response => response.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: boolean | null = null) {
-        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe, captcha})
+        return instance.post<CommonResponseType<{ userId: number }>>(`auth/login`, {
+            email,
+            password,
+            rememberMe,
+            captcha
+        })
     },
     logout() {
         return instance.delete<CommonResponseType>(`auth/login`,)
@@ -60,7 +68,7 @@ export const authAPI = {
 
 export const profileAPI = {
     getUserProfile(userId: number | null) {
-        return instance.get<ProfileUserType>(`profile/${userId}` )
+        return instance.get<ProfileUserType>(`profile/${userId}`)
             .then(response => response.data)
     },
     getUserStatus(userId: number | null) {
@@ -68,6 +76,15 @@ export const profileAPI = {
     },
     updateUserStatus(status: string) {
         return instance.put<CommonResponseType>(`profile/status`, {status})
+    },
+    savePhoto(photoFile: any) {
+        const formData = new FormData();
+        formData.append("image", photoFile)
+        return instance.put<CommonResponseType<PhotosType>>('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 

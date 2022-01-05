@@ -1,4 +1,4 @@
-import {profileAPI} from "../api/api";
+import {PhotosType, profileAPI} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
 
@@ -6,6 +6,7 @@ const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET-USER-PROFILE';
 const SET_USER_STATUS = 'profile/SET-USER-STATUS';
 const DELETE_POST = 'profile/DELETE-POST';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 export type InitialStateType = {
     posts: Array<PostType>
@@ -49,7 +50,8 @@ type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof setUserProfile> |
     ReturnType<typeof setUserStatus> |
-    ReturnType<typeof deletePost>
+    ReturnType<typeof deletePost> |
+    ReturnType<typeof savePhotoSuccess>
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
@@ -96,7 +98,15 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 posts: state.posts.filter(p => p.id !== action.postId)
             }
         }
-
+        case SAVE_PHOTO_SUCCESS: {
+            if (state.profile) {
+                return {
+                    ...state,
+                    profile: {...state.profile, photos: action.photos}
+                }
+            }
+            return {...state}
+        }
 
         default:
             return state;
@@ -118,6 +128,10 @@ export const setUserStatus = (status: string) => ({
 export const deletePost = (postId: number) => ({
     type: DELETE_POST,
     postId
+} as const)
+export const savePhotoSuccess = (photos: PhotosType) => ({
+    type: SAVE_PHOTO_SUCCESS,
+    photos
 } as const)
 
 
@@ -143,5 +157,14 @@ export const updateUserStatus = (status: string): ThunkType => {
         }
     }
 }
+
+export const savePhoto = (file: any, userId: number | null): ThunkType => async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+    const response = await profileAPI.savePhoto(file);
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data));
+        dispatch(getUserProfile(userId));
+    }
+}
+
 
 export default profileReducer;
