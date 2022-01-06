@@ -31,15 +31,40 @@ function ProfileInfo(props: PropsType) {
                 <div>
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelector}/>}
                 </div>
-                <div>
-                    {props.profile.fullName}
-                    {props.profile.aboutMe}
-                </div>
-
                 <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
+                <ProfileData profile={props.profile}/>
             </div>
         </div>
     )
+}
+
+type ContactsType = {
+    contactTitle: string
+    contactValue: string | null
+}
+export const Contacts = ({contactTitle, contactValue}: ContactsType) => {
+    return (
+        <div>
+            <b>{contactTitle}:</b> {contactValue}
+        </div>
+    )
+}
+
+export const ProfileData = ({profile}: { profile: ProfileUserType }) => {
+    return (
+        <div>
+            <div>My name is {profile.fullName}</div>
+            <div>About me: {profile.aboutMe}</div>
+            <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
+            {profile.lookingForAJob &&
+            <div>My professional skills: {profile.lookingForAJobDescription}</div>}
+            {/*<div>Contacts: {Object.keys(profile.contacts).map(key => {*/}
+            {/*    return <Contacts contactTitle={key} key={key}*/}
+            {/*              contactValue={profile.contacts[key]}/>*/}
+            {/*})}</div>*/}
+        </div>
+    )
+
 }
 
 export default ProfileInfo;
