@@ -10,9 +10,9 @@ type ProfilePropsType = {
     status: string
     updateUserStatus: (status: string) => any
     isOwner: boolean
-    savePhoto: (e: any, userId: number | null) => void
+    savePhoto: (e: File, userId: number | null) => void
     authorizedUserId: number | null
-    saveProfile: (formData: ProfileDataFormType) => void
+    saveProfile: (formData: ProfileDataFormType) => Promise<any>
 }
 
 

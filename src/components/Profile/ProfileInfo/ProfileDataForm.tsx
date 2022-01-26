@@ -2,12 +2,13 @@ import {ProfileUserType} from "../../../Redux/profileReducer";
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../common/FormsControls/FormsControl";
+import s from "../../common/FormsControls/FormControls.module.css";
+
 
 export type ProfileDataFormType = ProfileUserType
 
 type PropsType = {
     profile: ProfileUserType
-    isOwner: boolean
 }
 
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, PropsType> & PropsType> =
@@ -18,6 +19,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, PropsType
                 <button onClick={() => {
                 }}>save
                 </button>
+                {error && <div className={s.summaryError}>{error}</div>}
             </div>
             <div>My name is {
                 <div>
@@ -35,10 +37,12 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType, PropsType
                 <Field placeholder={"My professional skills"} name={"lookingForAJobDescription"} component={Textarea}
                        validate={[]}/>
             </div>
-            {/*<div>Contacts: {Object.keys(profile.contacts).map(key => {*/}
-            {/*    return <Contacts contactTitle={key} key={key}*/}
-            {/*              contactValue={profile.contacts[key]}/>*/}
-            {/*})}</div>*/}
+            <div>Contacts: {Object.keys(profile.contacts).map(key => {
+                const name = "contacts." + key
+                return <div key={key}>
+                    <b>{key}: <Field placeholder={key} name={name} component={Input} validate={[]}/></b>
+                </div>
+            })}</div>
         </form>
     )
 

@@ -29,8 +29,8 @@ type MapDispatchToPropsType = {
     getUserProfile: (userId: number | null) => any
     getUserStatus: (userId: number | null) => any
     updateUserStatus: (status: string) => any
-    savePhoto: (e: any, userId: number | null) => void
-    saveProfile: (formData: ProfileDataFormType) => void
+    savePhoto: (e: File, userId: number | null) => void
+    saveProfile: (formData: ProfileDataFormType) => any
 }
 export type ProfileAPIComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PropsType = RouteComponentProps<PathParamsType> & ProfileAPIComponentPropsType

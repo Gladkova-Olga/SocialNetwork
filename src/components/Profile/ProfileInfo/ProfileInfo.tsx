@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
-import {ProfileUserType} from "../../../Redux/profileReducer";
+import {ContactsType, ProfileUserType} from "../../../Redux/profileReducer";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/User_icon.png";
 import ProfileDataForm, {ProfileDataFormType} from "./ProfileDataForm";
@@ -13,7 +13,7 @@ type PropsType = {
     isOwner: boolean
     savePhoto: (e: any, userId: number | null) => void
     authorizedUserId: number | null
-    saveProfile: (formData: ProfileDataFormType) => void
+    saveProfile: (formData: ProfileDataFormType) => Promise<any>
 }
 
 function ProfileInfo(props: PropsType) {
@@ -23,13 +23,15 @@ function ProfileInfo(props: PropsType) {
         return <Preloader/>
     }
     const onMainPhotoSelector = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
+        if (e.target.files?.length) {
             props.savePhoto(e.target.files[0], props.authorizedUserId)
         }
     }
     const goToEditMode = () => setEditMode(true);
     const onSubmit = (formData: ProfileDataFormType) => {
-        props.saveProfile(formData)
+        props.saveProfile(formData).then(
+            () => setEditMode(false)
+        )
     }
 
     return (
@@ -40,20 +42,20 @@ function ProfileInfo(props: PropsType) {
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelector}/>}
                 </div>
                 <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
-                {editMode ? <ProfileDataForm onSubmit={onSubmit} profile={props.profile} isOwner = {props.isOwner}
-                    initialValues={props.profile}/> :
-                    <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode = {goToEditMode}/>}
+                {editMode ?
+                    <ProfileDataForm onSubmit={onSubmit} profile={props.profile} initialValues={props.profile}/> :
+                    <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={goToEditMode}/>}
 
             </div>
         </div>
     )
 }
 
-type ContactsType = {
+type ContactsPropsType = {
     contactTitle: string
     contactValue: string | null
 }
-export const Contacts = ({contactTitle, contactValue}: ContactsType) => {
+export const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
     return (
         <div>
             <b>{contactTitle}:</b> {contactValue}
@@ -67,8 +69,7 @@ type ProfileDataType = {
 }
 
 
-
-export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) => {
+export const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
             {isOwner && <div>
@@ -79,15 +80,16 @@ export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) =
             <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
             {profile.lookingForAJob &&
             <div>My professional skills: {profile.lookingForAJobDescription}</div>}
-            {/*<div>Contacts: {Object.keys(profile.contacts).map(key => {*/}
-            {/*    return <Contacts contactTitle={key} key={key}*/}
-            {/*              contactValue={profile.contacts[key]}/>*/}
-            {/*})}</div>*/}
+            <div>Contacts: {Object
+                .keys(profile.contacts)
+                .map((key) => {
+                    return <Contact contactTitle={key} key={key}
+                                    contactValue={profile.contacts[key as keyof ContactsType]}/>
+                })}</div>
         </div>
     )
 
 }
-
 
 
 export default ProfileInfo;

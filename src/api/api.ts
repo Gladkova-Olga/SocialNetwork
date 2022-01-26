@@ -78,7 +78,7 @@ export const profileAPI = {
     updateUserStatus(status: string) {
         return instance.put<CommonResponseType>(`profile/status`, {status})
     },
-    savePhoto(photoFile: any) {
+    savePhoto(photoFile: File) {
         const formData = new FormData();
         formData.append("image", photoFile)
         return instance.put<CommonResponseType<PhotosType>>('profile/photo', formData, {

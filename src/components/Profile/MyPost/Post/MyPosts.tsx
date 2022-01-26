@@ -18,9 +18,8 @@ type MyPostFormDataType = {
 
 
 function MyPosts(props: MyPostsType) {
-    console.log("Render My Posts")
     let postsElements = props.posts.map(
-        p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>
+        p => <Post key={p.id} message={p.message} likesCount={p.likesCount} id={p.id}/>
     );
 
     let onAddPost = (formData: MyPostFormDataType) => {
