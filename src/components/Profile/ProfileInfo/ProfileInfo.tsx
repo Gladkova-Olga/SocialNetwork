@@ -1,9 +1,10 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
 import {ProfileUserType} from "../../../Redux/profileReducer";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/User_icon.png";
+import ProfileDataForm, {ProfileDataFormType} from "./ProfileDataForm";
 
 type PropsType = {
     profile: null | ProfileUserType
@@ -12,9 +13,12 @@ type PropsType = {
     isOwner: boolean
     savePhoto: (e: any, userId: number | null) => void
     authorizedUserId: number | null
+    saveProfile: (formData: ProfileDataFormType) => void
 }
 
 function ProfileInfo(props: PropsType) {
+    const [editMode, setEditMode] = useState(false);
+
     if (!props.profile) {
         return <Preloader/>
     }
@@ -22,6 +26,10 @@ function ProfileInfo(props: PropsType) {
         if (e.target.files && e.target.files.length) {
             props.savePhoto(e.target.files[0], props.authorizedUserId)
         }
+    }
+    const goToEditMode = () => setEditMode(true);
+    const onSubmit = (formData: ProfileDataFormType) => {
+        props.saveProfile(formData)
     }
 
     return (
@@ -32,7 +40,10 @@ function ProfileInfo(props: PropsType) {
                     {props.isOwner && <input type={"file"} onChange={onMainPhotoSelector}/>}
                 </div>
                 <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus}/>
-                <ProfileData profile={props.profile}/>
+                {editMode ? <ProfileDataForm onSubmit={onSubmit} profile={props.profile} isOwner = {props.isOwner}
+                    initialValues={props.profile}/> :
+                    <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode = {goToEditMode}/>}
+
             </div>
         </div>
     )
@@ -49,10 +60,20 @@ export const Contacts = ({contactTitle, contactValue}: ContactsType) => {
         </div>
     )
 }
+type ProfileDataType = {
+    profile: ProfileUserType
+    isOwner: boolean
+    goToEditMode: () => void
+}
 
-export const ProfileData = ({profile}: { profile: ProfileUserType }) => {
+
+
+export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataType) => {
     return (
         <div>
+            {isOwner && <div>
+                <button onClick={goToEditMode}>edit</button>
+            </div>}
             <div>My name is {profile.fullName}</div>
             <div>About me: {profile.aboutMe}</div>
             <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
@@ -66,5 +87,7 @@ export const ProfileData = ({profile}: { profile: ProfileUserType }) => {
     )
 
 }
+
+
 
 export default ProfileInfo;

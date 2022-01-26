@@ -1,6 +1,7 @@
 import axios from "axios";
 import {UserType} from "../Redux/usersReducer";
 import {ProfileUserType} from "../Redux/profileReducer";
+import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 type AuthDataType = {
     email: string
@@ -85,6 +86,9 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    saveProfile(profile: ProfileDataFormType) {
+        return instance.put<CommonResponseType<ProfileDataFormType>>('profile', profile)
     }
 }
 

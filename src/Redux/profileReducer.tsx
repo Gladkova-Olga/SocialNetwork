@@ -1,6 +1,7 @@
 import {PhotosType, profileAPI} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
+import {ProfileDataFormType} from "../components/Profile/ProfileInfo/ProfileDataForm";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET-USER-PROFILE';
@@ -163,6 +164,14 @@ export const savePhoto = (file: any, userId: number | null): ThunkType => async 
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data));
         dispatch(getUserProfile(userId));
+    }
+}
+
+export const saveProfile = (profile: ProfileDataFormType): ThunkType => async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsTypes>) => {
+    const response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+        dispatch(saveProfile(response.data.data));
+        // dispatch(getUserProfile(userId));
     }
 }
 
