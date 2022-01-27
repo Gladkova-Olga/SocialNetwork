@@ -12,18 +12,22 @@ type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
-    captcha: null | boolean
+    captcha: null | string
 }
 type MapDispatchToPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: boolean | null) => any
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null) => any
 }
 type MapStateToPropsType = {
+    captchaUrl: null | string
     isAuth: boolean
 }
 type LoginPropsType = MapDispatchToPropsType & MapStateToPropsType
+type LoginFormPropsType = {
+    captchaUrl: null | string
+}
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = //деструктуризация props
-    ({handleSubmit, error}) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormPropsType> & LoginFormPropsType> = //деструктуризация props
+    ({handleSubmit, captchaUrl, error}) => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -40,6 +44,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = //дестр
             {error && <div className={s.summaryError}>
                 {error}
             </div>}
+            {captchaUrl && <div><img src = {captchaUrl} alt=""/></div>}
+            {captchaUrl && <Field placeholder={"Symbols from image"} name={"captcha"}
+                                  component={Input} validate={[required]}/>}
             <div>
                 <button>sign in</button>
             </div>
@@ -47,7 +54,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = //дестр
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType, LoginFormPropsType>({form: 'login'})(LoginForm)
 
 
 const Login = (props: LoginPropsType) => {
@@ -60,13 +67,14 @@ const Login = (props: LoginPropsType) => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 
 }

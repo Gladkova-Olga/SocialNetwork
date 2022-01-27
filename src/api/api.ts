@@ -24,6 +24,9 @@ export type PhotosType = {
     small: string
     large: string
 }
+type CaptchaUrlType = {
+    url: string
+}
 
 
 const instance = axios.create({
@@ -54,7 +57,7 @@ export const authAPI = {
         return instance.get<CommonResponseType<AuthDataType>>(`auth/me`)
             .then(response => response.data)
     },
-    login(email: string, password: string, rememberMe: boolean = false, captcha: boolean | null = null) {
+    login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
         return instance.post<CommonResponseType<{ userId: number }>>(`auth/login`, {
             email,
             password,
@@ -89,6 +92,12 @@ export const profileAPI = {
     },
     saveProfile(profile: ProfileDataFormType) {
         return instance.put<CommonResponseType<ProfileDataFormType>>('profile', profile)
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get<CaptchaUrlType>('security/get-captcha-url')
     }
 }
 
