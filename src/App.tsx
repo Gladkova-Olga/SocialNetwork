@@ -1,7 +1,7 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
@@ -14,7 +14,6 @@ import {compose} from "redux";
 import {initializeApp} from "./Redux/appReducer";
 import Preloader from "./components/common/preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
-// import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer")); //not included in the bundle
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer")); //not included in the bundle
@@ -44,19 +43,22 @@ class App extends React.Component<PropsType> {
                 <Navbar
                 />
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/profile/:userId?'}
-                           render={withSuspense(ProfileContainer)}/>
-                    <Route path={'/dialogs'}
-                           render={withSuspense(DialogsContainer)}/>
-                    <Route path={'/users'}
-                           render={withSuspense(UsersContainer)}/>
-
-                    <Route path={'/login'} render={withSuspense(Login)}/>
-
-                    <Route path={'/news'} render={() => <News/>}/>
-                    <Route path={'/music'} render={() => <Music/>}/>
-                    <Route path={'/settings'} render={() => <Settings/>}/>
-
+                    <Switch>
+                        <Route exact path={'/'} render={ () => <Redirect to={'/profile'}/>}/>
+                        <Route path={'/profile/:userId?'}
+                               render={withSuspense(ProfileContainer)}/>
+                        <Route path={'/dialogs'}
+                               render={withSuspense(DialogsContainer)}/>
+                        <Route path={'/users'}
+                               render={withSuspense(UsersContainer)}/>
+                        <Route path={'/login'} render={withSuspense(Login)}/>
+                        <Route path={'/news'} render={() => <News/>}/>
+                        <Route path={'/music'} render={() => <Music/>}/>
+                        <Route path={'/settings'} render={() => <Settings/>}/>
+                        {/*<Redirect from={'*'} to={<div>404 Not Found</div>}}/>*/}
+                        <Route path={'*'} render={() => <div>404 Not Found</div>}/>
+                        {/*<Redirect from={"/"} to={"/profile"}/>*/}
+                    </Switch>
                 </div>
             </div>
         );
@@ -74,6 +76,7 @@ const AppContainer = compose<React.ComponentType>(
 
 const SamuraiJSApp = () => {
     return (
+        //here is used HashRouter for gh-pages. In other cases should use BrowserRouter
         <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
