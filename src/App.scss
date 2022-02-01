@@ -1,0 +1,22 @@
+@import "/styles/sass/vareables.scss";
+
+.app-wrapper {
+  display: grid;
+  height: 100vh;
+  margin: 0;
+  grid-template-areas:
+  "h h"
+  "n c";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 200px 8fr;
+  grid-gap: 20px;
+  background-color: $backgroundSecondaryColor;
+  .app-wrapper-content {
+    grid-area: c;
+    background-color: $backgroundPrimaryColor
+
+  }
+}
+
+
+

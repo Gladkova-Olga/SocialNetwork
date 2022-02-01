@@ -1,0 +1,29 @@
+@import "/../../styles/sass/vareables";
+@import "/../../styles/sass/mixins";
+
+
+.nav {
+  grid-area: n;
+  background-color: $backgroundPrimaryColor;
+  padding: 30px 0 0 30px;
+  margin: 0px 0px 20px 20px;
+  border-radius: 8px;
+  .item {
+    padding-bottom: 8px;
+    & a {
+      text-decoration: none;
+      cursor: pointer;
+      @include text($fontFamilyText, 15px, 600, 1.2, $textColor)
+
+    }
+    & a.activeLink {
+      color: $selectedTextColor;
+    }
+    & a:hover {
+      color: $primaryColor;
+    }
+  }
+
+
+}
+

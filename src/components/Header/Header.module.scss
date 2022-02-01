@@ -1,0 +1,30 @@
+@import "../../styles/sass/vareables";
+@import "../../styles/sass/mixins";
+
+.header {
+    grid-area: h;
+    background-color: $backgroundHeaderColor;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
+    .loginBlock {
+        float: right;
+        margin-top: 12px;
+        margin-right: 10px;
+
+        .loginText {
+            @include text($fontFamilyText, 14px, bold, 1.2, $headerAndBtnTextColor);
+            & a {
+                text-decoration: none;
+                cursor: pointer;
+                @include text($fontFamilyText, 15px, 600px, 1.2, $headerAndBtnTextColor)
+
+            }
+            & a:hover {
+                color: $primaryColor;
+            }
+        }
+    }
+}
+
