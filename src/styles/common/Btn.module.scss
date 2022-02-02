@@ -3,8 +3,6 @@
 
 .btn{
   background-color: $primaryColor;
-  //height: 30px;
-  //width: 80px;
   padding: 8px;
   @include text($fontFamilyText, 14px, bold, 1, $headerAndBtnTextColor);
   border-radius: 4px;

@@ -1,0 +1,24 @@
+@import "../../../styles/sass/mixins";
+@import "../../../styles/sass/vareables";
+
+
+.dialogsItem {
+
+  .dialogsItemImg {
+    width: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+  }
+  .dialogsItemName{
+    text-decoration: none;
+    cursor: pointer;
+    @include text($fontFamilyText, 14px, 600, 1, $selectedTextColor);
+    margin-bottom: 10px;
+  }
+  a:hover {
+    color: $primaryColor;
+  }
+
+}

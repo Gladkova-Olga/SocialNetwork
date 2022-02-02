@@ -1,6 +1,7 @@
 import React from "react";
 import DialogItem from "./DialogItem/DialogItem";
-import s from './Dialogs.module.css'
+import s from './Dialogs.module.scss';
+import style from "../../styles/common/Btn.module.scss"
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
@@ -24,7 +25,6 @@ function Dialogs(props: DialogsPropsType) {
     );
 
     const AddNewMessage = (formData: MessageFormDataType) => {
-        console.log(formData.newMessageBody)
         props.onSendMessage(formData.newMessageBody)
     }
     return (
@@ -32,27 +32,25 @@ function Dialogs(props: DialogsPropsType) {
             <div className={s.dialogsItem}>
                 {dialogsElements}
             </div>
-
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-
                 <AddMessageReduxForm onSubmit={AddNewMessage}/>
-
             </div>
         </div>
     )
 }
+
 const maxLength50 = maxLengthCreator(50)
 export const AddMessageForm: React.FC<InjectedFormProps<MessageFormDataType>> = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className={s.messageFormContainer}>
             <div>
                 <Field name={"newMessageBody"} component={Textarea} placeholder='Enter your message'
-                validate = {[required, maxLength50]} >
+                       validate={[required, maxLength50]} className={s.messageField}>
                 </Field>
             </div>
             <div>
-                <button>Send</button>
+                <button className={style.btn}>Send</button>
             </div>
         </form>
     )

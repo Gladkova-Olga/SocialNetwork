@@ -1,0 +1,34 @@
+@import "../../styles/sass/vareables";
+@import "../../styles/sass/mixins";
+
+.dialogs {
+  display: grid;
+  grid-template-columns: 3fr 8fr;
+  .dialogsItem {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  .messages {
+    margin-top: 40px;
+    & .message {
+      @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+      padding-bottom: 6px;
+    }
+    .messageFormContainer {
+      padding-top: 50px;
+      .messageField {
+        @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+
+}
+
+
+
+
+
+

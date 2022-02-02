@@ -2,7 +2,7 @@
 
 .app-wrapper {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   grid-template-areas:
   "h h"
@@ -13,7 +13,9 @@
   background-color: $backgroundSecondaryColor;
   .app-wrapper-content {
     grid-area: c;
-    background-color: $backgroundPrimaryColor
+    background-color: $backgroundPrimaryColor;
+    border-radius: 8px;
+    margin: 0 20px 20px 0;
 
   }
 }
