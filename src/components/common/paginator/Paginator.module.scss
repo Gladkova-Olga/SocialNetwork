@@ -1,0 +1,17 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+.paginator {
+    text-align: center;
+    margin-bottom: 20px;
+    @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+    .selectedPage {
+        font-weight: bold;
+        font-size: 16px;
+        color: $selectedTextColor;
+        padding: 0 2px 0 2px;
+    }
+    .pageNumber{
+        padding: 0 4px 0 4px;
+    }
+}

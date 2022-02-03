@@ -1,0 +1,42 @@
+@import "../../styles/sass/vareables";
+@import "../../styles/sass/mixins";
+
+.userContainer {
+  padding: 10px;
+
+  .userBlock {
+    background-color: $backgroundSecondaryColor;
+    border-radius: 8px;
+
+    .userPhoto {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      vertical-align: top;
+      display: inline-block;
+    }
+
+    .userInfo {
+      width: 60%;
+      display: inline-block;
+      padding-left: 10px;
+
+      .userName {
+        @include text($fontFamilyText, 15px, 600, 1.2, $selectedTextColor);
+        padding-bottom: 8px;
+        padding-top: 8px;
+      }
+
+      .userStatus {
+        @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+        padding-bottom: 8px;
+      }
+    }
+  }
+}
+
+
+
+
+
+

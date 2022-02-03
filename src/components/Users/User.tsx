@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./users.module.css";
+import styles from "./User.module.scss";
 import userPhoto from "../../assets/images/User_icon.png";
 import {UserType} from "../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-
+import styleBtn from '../../styles/common/Btn.module.scss'
 
 
 export type UserPropsType = {
@@ -13,37 +13,38 @@ export type UserPropsType = {
     followingInProgress: Array<number>
 }
 
-function User({user, followingInProgress, unfollow, follow }: UserPropsType) {
+function User({user, followingInProgress, unfollow, follow}: UserPropsType) {
 
     return (
-        <div>
-                    <span>
-                        <div>
-                            <NavLink to={'/profile/' + user.id}>
-                            <img src={user.photos.small ? user.photos.small : userPhoto} className={styles.userPhoto}/>
-                            </NavLink>
-                        </div>
-                        <div>
-                            {user.followed
-                                ? <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                                    unfollow(user.id);
-                                }}>Unfollow</button>
-                                : <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
-                                    follow(user.id);
-                                }}>Follow</button>}
-                        </div>
-                    </span>
-                    <span>
-                         <span>
-                             <div>{user.name}</div><div>{user.status}</div>
-                         </span>
-                           <span>
-                             <div>{"user.location.country"}</div>
-                               <div>{"user.location.city"}</div>
-                         </span>
-                    </span>
-                </div>
+        <div className={styles.userContainer}>
+            <div className={styles.userBlock}>
+                <NavLink to={'/profile/' + user.id}>
+                    <img src={user.photos.small ? user.photos.small : userPhoto} className={styles.userPhoto}/>
+                </NavLink>
+                <span className={styles.userInfo}>
+                    <div className={styles.userName}>{user.name}</div>
+                    <div className={styles.userStatus}>{user.status}</div>
+                    <div>
+                {user.followed
+                    ? <button className={styleBtn.btn}
+                              disabled={followingInProgress.some(id => id === user.id)}
+                              onClick={() => {
+                                  unfollow(user.id);
+                              }}>Unfollow
+                    </button>
+                    : <button className={styleBtn.btn}
+                              disabled={followingInProgress.some(id => id === user.id)}
+                              onClick={() => {
+                                  follow(user.id);
+                              }}>Follow
+                    </button>}
+            </div>
+                </span>
 
+            </div>
+
+
+        </div>
 
 
     )

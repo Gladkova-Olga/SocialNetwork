@@ -1,5 +1,6 @@
-import styles from "./Paginator.module.css";
+import styles from "./Paginator.module.scss";
 import React, {useState} from "react";
+import styleBtn from "../../../styles/common/Btn.module.scss"
 
 type PaginatorPropsType = {
     totalItemsCount: number
@@ -22,23 +23,25 @@ const Paginator = (props: PaginatorPropsType) => {
 
 
     return (
-        <div>
-            <button onClick={() => setPortionNumber(portionNumber - 1)} disabled={portionNumber <= 1}>
-                PREV
+        <div className={styles.paginator}>
+            <button onClick={() => setPortionNumber(portionNumber - 1)}
+                    disabled={portionNumber <= 1} className={styleBtn.btnSecondVariant}>
+                Prev
             </button>
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => {
                     return (
-                        <span className={(p === props.currentPage) ? styles.selectedPage : ''}
+                        <span className={(p === props.currentPage) ? styles.selectedPage : styles.pageNumber}
                               onClick={() => {
                                   props.onPageChanged(p)
                               }}
                         > {p}</span>
                     )
                 })}
-            <button onClick={() => setPortionNumber(portionNumber + 1)} disabled={portionNumber >= portionCount}>
-                NEXT
+            <button onClick={() => setPortionNumber(portionNumber + 1)}
+                    className={styleBtn.btnSecondVariant} disabled={portionNumber >= portionCount}>
+                Next
             </button>
 
         </div>
