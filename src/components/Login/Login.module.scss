@@ -1,0 +1,26 @@
+@import "../../styles/sass/vareables";
+@import "../../styles/sass/mixins";
+
+.loginContainer {
+  text-align: center;
+  margin-top: 40px;
+  .titleLoginPage {
+    padding-bottom: 40px;
+    @include text($fontFamilyText, 24px, 600, 1.2, $selectedTextColor)
+  }
+  .formLogin {
+    width: 100%;
+    .field {
+      margin-bottom: 10px;
+      border: 1px solid $textColor;
+      @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+    }
+    .checkbox {
+      display: inline-block;
+      padding-right: 10px;
+      @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+      vertical-align: middle;
+      margin-bottom: 20px;
+    }
+  }
+}

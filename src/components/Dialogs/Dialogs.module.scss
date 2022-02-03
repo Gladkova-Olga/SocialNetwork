@@ -7,6 +7,16 @@
   .dialogsItem {
     margin-top: 20px;
     margin-left: 20px;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      background: $backgroundSecondaryColor;
+      height: 100%;
+      width: 1px;
+      bottom: 0;
+      right: 20%;
+    }
   }
 
   .messages {
