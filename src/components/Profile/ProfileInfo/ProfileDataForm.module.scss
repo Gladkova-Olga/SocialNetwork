@@ -1,0 +1,13 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+.profileDataFormContainer {
+  @include text($fontFamilyText, 14px, 400, 1.2, $textColor);
+  .field {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 2px;
+  }
+
+}

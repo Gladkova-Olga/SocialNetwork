@@ -11,7 +11,7 @@
 
 .btnSecondVariant{
   background-color: $backgroundPrimaryColor;
-  padding: 6px;
+  padding: 4px;
   @include text($fontFamilyText, 13px, bold, 1, $primaryColor);
   border-radius: 4px;
   border: 1px solid $primaryColor;

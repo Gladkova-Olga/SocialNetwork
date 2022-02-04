@@ -5,7 +5,7 @@ type PropsType = {
     status: string
     updateUserStatus: (status: string) => any
 }
-
+// We don't use this component, just for training
 class ProfileStatus extends React.Component<PropsType> {
     state = {
         editMode: false,

@@ -1,0 +1,40 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+.profileInfoContainer {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 3fr 6fr;
+  .mainPhoto {
+    border-radius: 8px;
+    max-width: 200px;
+    border: none;
+  }
+
+  .editImage {
+    position: relative;
+    margin-top: 10px;
+
+    .editImageInput{
+      position: absolute;
+      visibility: hidden;
+    }
+
+  }
+}
+
+
+.profileDataContainer {
+  @include text($fontFamilyText, 14px, 400, 1.2, $textColor);
+
+  .profileData {
+    color: $selectedTextColor;
+    font-weight: bold;
+  }
+
+  .contactsContainer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+

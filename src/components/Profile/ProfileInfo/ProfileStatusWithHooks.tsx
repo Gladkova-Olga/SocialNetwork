@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
+import s from "./ProfileStatusWithHooks.module.scss"
 
 type PropsType = {
     status: string
@@ -23,10 +23,10 @@ const ProfileStatusWithHooks = (props: PropsType) => {
     }
 
     return (
-        <div>
+        <div className={s.statusContainer}>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode}>Status: {props.status || "----"}</span>
+                <span onDoubleClick={activateEditMode}>{props.status || "----"}</span>
             </div>
             }
             {editMode &&

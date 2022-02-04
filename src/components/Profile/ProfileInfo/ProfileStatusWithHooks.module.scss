@@ -1,0 +1,7 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+.statusContainer {
+  margin-bottom: 10px;
+  @include text($fontFamilyText, 16px, 600, 1.2, $selectedTextColor);
+}
