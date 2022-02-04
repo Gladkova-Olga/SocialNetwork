@@ -1,0 +1,13 @@
+@import "../../../../styles/sass/vareables";
+@import "../../../../styles/sass/mixins";
+
+.postContainer{
+    margin: 20px 0;
+    @include text($fontFamilyText, 14px, 400, 1.2, $selectedTextColor);
+    .likes {
+        color: $textColor;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+}
+

@@ -1,17 +1,15 @@
 import React from "react";
-import s from './Post.module.css';
+import s from './Post.module.scss';
 import {PostType} from "../../../../Redux/profileReducer";
 
 
 
 function Post(props: PostType) {
     return (
-        <div className={s.item}>
-            <img
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCgPWBtcWfGpFd3n6ma11amy6vQwYYZ8oj9A&usqp=CAU'/>
+        <div className={s.postContainer}>
             {props.message}
             <div>
-                <span>like </span> {props.likesCount}
+                <span className={s.likes}>like {props.likesCount}</span>
             </div>
 
         </div>
