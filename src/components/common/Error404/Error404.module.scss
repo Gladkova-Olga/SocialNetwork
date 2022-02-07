@@ -1,0 +1,14 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+
+.error404Page {
+  @include text($fontFamilyText, 30px, 600, 1.2, $textColor);
+  text-align: center;
+  margin-top: 40px;
+  .numbers{
+    font-size: 100px;
+    padding-bottom: 40px;
+
+  }
+}
