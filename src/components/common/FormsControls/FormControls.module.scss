@@ -1,0 +1,11 @@
+@import "../../../styles/sass/vareables";
+@import "../../../styles/sass/mixins";
+
+.formControl {
+  @include text($fontFamilyText, 12px, 600, 1.2, $errorColor);
+  }
+
+ .summaryError {
+   @include text($fontFamilyText, 14px, 600, 1.2, $errorColor);
+   padding: 10px;
+ }

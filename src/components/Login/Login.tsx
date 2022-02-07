@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../../Redux/authReducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../Redux/reduxStore";
-import s from "../common/FormsControls/FormControls.module.css"
+import s from "../common/FormsControls/FormControls.module.scss"
 import styles from "./Login.module.scss"
 import styleBtn from "../../styles/common/Btn.module.scss"
 

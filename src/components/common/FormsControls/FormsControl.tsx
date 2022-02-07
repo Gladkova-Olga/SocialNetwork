@@ -1,14 +1,15 @@
-import s from "./FormControls.module.css"
+import s from "./FormControls.module.scss"
 
 
 const FormControl = ({input, meta, child, ...props}: any) => {
     const hasError = meta.touched && meta.error
     return (
-        <div className={s.formControl + " " + (hasError ? s.error : "")}>
+        <div className={s.formControl}>
             <div>
                 {props.children}
+                {hasError && <div>{meta.error}</div>}
             </div>
-            {hasError && <span>{meta.error}</span>}
+
 
         </div>
     )
