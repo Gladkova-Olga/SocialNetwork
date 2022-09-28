@@ -8,6 +8,10 @@
     padding-bottom: 30px;
     @include text($fontFamilyText, 24px, 600, 1.2, $selectedTextColor)
   }
+  .loginText{
+    @include text($fontFamilyText, 13px, 400, 1.2, $textColor);
+    padding: 0 0 10px 0;
+  }
   .formLogin {
     width: 100%;
     .field {

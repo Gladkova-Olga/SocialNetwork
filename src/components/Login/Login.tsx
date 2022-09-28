@@ -69,6 +69,9 @@ const Login = (props: LoginPropsType) => {
     return (
         <div className={styles.loginContainer}>
             <div className={styles.titleLoginPage}>Login</div>
+            <div className={styles.loginText}>To log in use common test account credentials:
+                Email: free@samuraijs.com
+                Password: free</div>
             <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
